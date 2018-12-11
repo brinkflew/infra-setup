@@ -206,7 +206,7 @@ okay "Successfully restarted the SSH daemon"
 # Update the dynamic message of the day (MOTD)
 info "Updating the Message of the Day"
 cp ./etc/profile.d/00-colors.sh /etc/profile.d/ && \
-sed -i "s/{{accentcolor}}/$termcolor/" /etc/profile.d/10-greetings.sh
+sed -i "s/{{accentcolor}}/$termcolor/" /etc/profile.d/00-colors.sh
 cp ./etc/profile.d/10-greetings.sh /etc/profile.d/ && \
 sed -i "s/{{accentcolor}}/$termcolor/" /etc/profile.d/10-greetings.sh
 cp ./etc/profile.d/20-sysinfo.sh /etc/profile.d/ && \
