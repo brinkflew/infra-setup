@@ -76,7 +76,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1="${debian_chroot:+($debian_chroot)}${COLOR}\u${GREY}@${COLOR}\h ${GREY}\w ${WHITE}\$${NORM} "
+    PS1="${debian_chroot:+($debian_chroot)}${ACCT}\u${GREY}@${ACCT}\h ${GREY}\w ${WHIT}\$${NORM} "
 else
     PS1="${debian_chroot:+($debian_chroot)}\u@\h \w \$ "
 fi

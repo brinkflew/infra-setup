@@ -144,25 +144,25 @@ usage_size=`df -h /home | awk 'NR==2{print $2; exit}'`
 usage_used=`df -h /home | awk 'NR==2{print $3; exit}'`
 usage_avai=`df -h /home | awk 'NR==2{print $4; exit}'`
 usage_perc=`df -h /home | awk 'NR==2{print $5; exit}'`
-usage_home=`echo "${usage_perc} used on ${usage_disk} (${usage_used} used / ${usage_size} total, ${usage_avai} available)"`
+usage_home=`echo "${usage_perc} used on ${usage_disk} (${usage_used} used / ${usage_size} total, ${usage_avai} avail.)"`
 usage_disk=`df -h /var | awk 'NR==2{print $6; exit}'`
 usage_size=`df -h /var | awk 'NR==2{print $2; exit}'`
 usage_used=`df -h /var | awk 'NR==2{print $3; exit}'`
 usage_avai=`df -h /var | awk 'NR==2{print $4; exit}'`
 usage_perc=`df -h /var | awk 'NR==2{print $5; exit}'`
-usage_var=`echo "${usage_perc} used on ${usage_disk} (${usage_used} used / ${usage_size} total, ${usage_avai} available)"`
+usage_var=`echo "${usage_perc} used on ${usage_disk} (${usage_used} used / ${usage_size} total, ${usage_avai} avail.)"`
 usage_disk=`df -h /var/log | awk 'NR==2{print $6; exit}'`
 usage_size=`df -h /var/log | awk 'NR==2{print $2; exit}'`
 usage_used=`df -h /var/log | awk 'NR==2{print $3; exit}'`
 usage_avai=`df -h /var/log | awk 'NR==2{print $4; exit}'`
 usage_perc=`df -h /var/log | awk 'NR==2{print $5; exit}'`
-usage_varlog=`echo "${usage_perc} used on ${usage_disk} (${usage_used} used / ${usage_size} total, ${usage_avai} available)"`
+usage_varlog=`echo "${usage_perc} used on ${usage_disk} (${usage_used} used / ${usage_size} total, ${usage_avai} avail.)"`
 usage_disk=`df -h /var/www | awk 'NR==2{print $6; exit}'`
 usage_size=`df -h /var/www | awk 'NR==2{print $2; exit}'`
 usage_used=`df -h /var/www | awk 'NR==2{print $3; exit}'`
 usage_avai=`df -h /var/www | awk 'NR==2{print $4; exit}'`
 usage_perc=`df -h /var/www | awk 'NR==2{print $5; exit}'`
-usage_varwww=`echo "${usage_perc} used on ${usage_disk} (${usage_used} used / ${usage_size} total, ${usage_avai} available)"`
+usage_varwww=`echo "${usage_perc} used on ${usage_disk} (${usage_used} used / ${usage_size} total, ${usage_avai} avail.)"`
 
 # Find the current CPU usage
 load_1=`cat /proc/loadavg | awk '{print $1}'`
