@@ -16,10 +16,10 @@
 # ==============================================================================
 
 # Prompt colors constants
-readonly NORM="\033[0m"
-readonly GREY="\033[38;5;242m"
-readonly WHITE="\033[38;5;255m"
-readonly COLOR="\033[38;5;{{accentcolor}}m"
+# readonly NORM="\033[0m"
+# readonly GREY="\033[38;5;242m"
+# readonly WHITE="\033[38;5;255m"
+# readonly COLOR="\033[38;5;{{accentcolor}}m"
 
 # If not running interactively, don't do anything
 case $- in

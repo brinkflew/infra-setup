@@ -130,29 +130,47 @@ fi
 
 session="${session_count} SSH ${session_noun} ${session_verb} currently active"
 
-# Find the last login date
-login_wday=`lastlog -u $(whoami) | awk 'NR==2{print $3; exit}'`
-login_month=`lastlog -u $(whoami) | awk 'NR==2{print $4; exit}'`
-login_date=`lastlog -u $(whoami) | awk 'NR==2{print $5; exit}'`
-login_time=`lastlog -u $(whoami) | awk 'NR==2{print $6; exit}'`
-login_year=`lastlog -u $(whoami) | awk 'NR==2{print $8; exit}'`
-login="You last logged in on ${login_wday}, ${login_date} ${login_month} ${login_year} ${login_time}"
+# # Find the last login date
+# login_wday=`lastlog -u $(whoami) | awk 'NR==2{print $3; exit}'`
+# login_month=`lastlog -u $(whoami) | awk 'NR==2{print $4; exit}'`
+# login_date=`lastlog -u $(whoami) | awk 'NR==2{print $5; exit}'`
+# login_time=`lastlog -u $(whoami) | awk 'NR==2{print $6; exit}'`
+# login_year=`lastlog -u $(whoami) | awk 'NR==2{print $8; exit}'`
+# login="You last logged in on ${login_wday}, ${login_date} ${login_month} ${login_year} ${login_time}"
 
 # Find the current disk usage
-usage_disk=`df -h ~/ | awk 'NR==2{print $1; exit}'`
-usage_size=`df -h ~/ | awk 'NR==2{print $2; exit}'`
-usage_used=`df -h ~/ | awk 'NR==2{print $3; exit}'`
-usage_avai=`df -h ~/ | awk 'NR==2{print $4; exit}'`
-usage_perc=`df -h ~/ | awk 'NR==2{print $5; exit}'`
-usage=`echo "${usage_perc} used on ${usage_disk} (${usage_used} used / ${usage_size} total, ${usage_avai} available)"`
+usage_disk=`df -h /home | awk 'NR==2{print $6; exit}'`
+usage_size=`df -h /home | awk 'NR==2{print $2; exit}'`
+usage_used=`df -h /home | awk 'NR==2{print $3; exit}'`
+usage_avai=`df -h /home | awk 'NR==2{print $4; exit}'`
+usage_perc=`df -h /home | awk 'NR==2{print $5; exit}'`
+usage_home=`echo "${usage_perc} used on ${usage_disk} (${usage_used} used / ${usage_size} total, ${usage_avai} available)"`
+usage_disk=`df -h /var | awk 'NR==2{print $6; exit}'`
+usage_size=`df -h /var | awk 'NR==2{print $2; exit}'`
+usage_used=`df -h /var | awk 'NR==2{print $3; exit}'`
+usage_avai=`df -h /var | awk 'NR==2{print $4; exit}'`
+usage_perc=`df -h /var | awk 'NR==2{print $5; exit}'`
+usage_var=`echo "${usage_perc} used on ${usage_disk} (${usage_used} used / ${usage_size} total, ${usage_avai} available)"`
+usage_disk=`df -h /var/log | awk 'NR==2{print $6; exit}'`
+usage_size=`df -h /var/log | awk 'NR==2{print $2; exit}'`
+usage_used=`df -h /var/log | awk 'NR==2{print $3; exit}'`
+usage_avai=`df -h /var/log | awk 'NR==2{print $4; exit}'`
+usage_perc=`df -h /var/log | awk 'NR==2{print $5; exit}'`
+usage_varlog=`echo "${usage_perc} used on ${usage_disk} (${usage_used} used / ${usage_size} total, ${usage_avai} available)"`
+usage_disk=`df -h /var/www | awk 'NR==2{print $6; exit}'`
+usage_size=`df -h /var/www | awk 'NR==2{print $2; exit}'`
+usage_used=`df -h /var/www | awk 'NR==2{print $3; exit}'`
+usage_avai=`df -h /var/www | awk 'NR==2{print $4; exit}'`
+usage_perc=`df -h /var/www | awk 'NR==2{print $5; exit}'`
+usage_varwww=`echo "${usage_perc} used on ${usage_disk} (${usage_used} used / ${usage_size} total, ${usage_avai} available)"`
 
 # Find the current CPU usage
 load_1=`cat /proc/loadavg | awk '{print $1}'`
 load_5=`cat /proc/loadavg | awk '{print $2}'`
 load_10=`cat /proc/loadavg | awk '{print $3}'`
 cpu_model=`lscpu | grep "Model name" | sed -e 's/Model name://' | awk '{print $1 " " $2}'`
-cpu_cores=`lscpu | grep "CPU(s):" | sed -e 's/CPU(s)://' | awk '{$1=$1;print}'`
-cpu_threads=`lscpu | grep "Thread(s) per core:" | sed -e 's/Thread(s) per core://' | awk '{$1=$1;print}'`
+cpu_cores=`lscpu | grep "CPU(s):" | sed -e 's/CPU(s)://' | awk 'NR==1{print $1}'`
+cpu_threads=`lscpu | grep "Thread(s) per core:" | sed -e 's/Thread(s) per core://' | awk 'NR==1{print $1}'`
 cpu_threads=`awk '{print $1*$2}' <<< "$cpu_cores $cpu_threads"`
 cpu_freq=`lscpu | grep "CPU MHz" | sed -e 's/CPU MHz://' | awk '{$1=$1;print}'`
 
@@ -169,8 +187,11 @@ ptitle $BOXSIZE "${ACCT}System Information"
 pline  $BOXSIZE "`label ${LABELSIZE} 'System Version'`${version}"
 pline  $BOXSIZE "`label ${LABELSIZE} 'System Uptime'`${uptime}"
 pline  $BOXSIZE "`label ${LABELSIZE} 'SSH Sessions'`${session}"
-pline  $BOXSIZE "`label ${LABELSIZE} 'Last Login'`${login}"
-pline  $BOXSIZE "`label ${LABELSIZE} 'Disk Usage'`${usage}"
+# pline  $BOXSIZE "`label ${LABELSIZE} 'Last Login'`${login}"
+pline  $BOXSIZE "`label ${LABELSIZE} 'Disk Usage'`${usage_home}"
+pline  $BOXSIZE "`label ${LABELSIZE} "                "`${usage_var}"
+pline  $BOXSIZE "`label ${LABELSIZE} "                "`${usage_varwww}"
+pline  $BOXSIZE "`label ${LABELSIZE} "                "`${usage_varlog}"
 pline  $BOXSIZE "`label ${LABELSIZE} 'Updates'`${updates_notif}"
 pline  $BOXSIZE "`repeat " " $((16 + 1 + 1))`${updates_sec_notif}"
 pclose $BOXSIZE
