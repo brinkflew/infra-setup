@@ -37,13 +37,13 @@ repeat() {
 
 # Prints a single line in a box
 pline() {
-  cstr=`echo "$2" | sed -E 's/\\\e\[([[:digit:]]{1,3};?){1,3}m//g'`
+  cstr=`echo "$2" | sed -E 's/\\\033\[([[:digit:]]{1,3};?){1,3}m//g'`
   echo -e "${GREY}║${NORM} $2`repeat " " $1-4-${#cstr}` ${GREY}║${NORM}"
 }
 
 # Prints the title line of a box
 ptitle() {
-  cstr=`echo "$2" | sed -E 's/\\\e\[([[:digit:]]{1,3};?){1,3}m//g'`
+  cstr=`echo "$2" | sed -E 's/\\\033\[([[:digit:]]{1,3};?){1,3}m//g'`
   echo -e "${GREY}  ╔═`repeat '═' ${#cstr}`═╗${NORM}"
   echo -e "${GREY}╔═╣${NORM} ${2} ${GREY}╠`repeat '═' $1-8-${#cstr}`═╗${NORM}"
   echo -e "${GREY}║ ╚═`repeat '═' ${#cstr}`═╝`repeat " " $1-8-${#cstr}` ║${NORM}"
@@ -63,8 +63,8 @@ pdline() {
 
 # Prints the title line of a box
 pdtitle() {
-  cstr1=`echo "$2" | sed -E 's/\\\e\[([[:digit:]]{1,3};?){1,3}m//g'`
-  cstr2=`echo "$3" | sed -E 's/\\\e\[([[:digit:]]{1,3};?){1,3}m//g'`
+  cstr1=`echo "$2" | sed -E 's/\\\033\[([[:digit:]]{1,3};?){1,3}m//g'`
+  cstr2=`echo "$3" | sed -E 's/\\\033\[([[:digit:]]{1,3};?){1,3}m//g'`
   len=$(($1 / 2 - 1))
   echo -e "${GREY}  ╔═`repeat '═' ${#cstr1}`═╗`repeat " " $len-4-${#cstr1}`  ╔═`repeat '═' ${#cstr2}`═╗${NORM}"
   echo -e "${GREY}╔═╣${NORM} ${2} ${GREY}╠`repeat '═' $len-8-${#cstr1}`═╗  ╔═╣${NORM} ${3} ${GREY}╠`repeat '═' $len-8-${#cstr2}`═╗${NORM}"

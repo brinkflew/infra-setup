@@ -35,7 +35,7 @@ repeat() {
 
 # Prints a single line in a box
 pline() {
-  cstr=`echo "$2" | sed -E 's/\\\e\[([[:digit:]]{1,3};?){1,3}m//g'`
+  cstr=`echo "$2" | sed -E 's/\\\033\[([[:digit:]]{1,3};?){1,3}m//g'`
   if [[ "$3" -eq "center" ]]; then
     pad=`repeat " " $((($1-4-${#cstr}) / 2))`
   fi
@@ -44,7 +44,7 @@ pline() {
 
 # Prints the title line of a box
 ptitle() {
-  cstr=`echo "$2" | sed -E 's/\\\e\[([[:digit:]]{1,3};?){1,3}m//g'`
+  cstr=`echo "$2" | sed -E 's/\\\033\[([[:digit:]]{1,3};?){1,3}m//g'`
   echo -e "${GREY}  ╔═`repeat '═' ${#cstr}`═╗${NORM}"
   echo -e "${GREY}╔═╣${NORM} ${2} ${GREY}╠`repeat '═' $1-8-${#cstr}`═╗${NORM}"
   echo -e "${GREY}║ ╚═`repeat '═' ${#cstr}`═╝`repeat " " $1-8-${#cstr}` ║${NORM}"
