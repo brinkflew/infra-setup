@@ -16,11 +16,11 @@
 # ==============================================================================
 
 # Prompt colors constants
-readonly NORM="\e[0m"
-readonly GREY="\e[38;5;242m"
-readonly ERROR="\e[38;5;196m"
-readonly WARN="\e[38;5;214m"
-readonly OKAY="\e[38;5;034m"
+readonly NORM="\033[0m"
+readonly GREY="\033[38;5;242m"
+readonly ERROR="\033[38;5;196m"
+readonly WARN="\033[38;5;214m"
+readonly OKAY="\033[38;5;034m"
 readonly INFO="$NORM"
 
 # Default values if no args are specified while running this script
@@ -38,7 +38,7 @@ readonly PACKAGES="sudo git"
 
 # Prints a message to the console, prefixed by an information box
 prompt() {
-  echo "${GREY}[ ${1}${GREY} ]${NORM} ${2}"
+  echo -e "${GREY}[ ${1}${GREY} ]${NORM} ${2}"
 }
 
 # Prints an error message to the console and exits the script
