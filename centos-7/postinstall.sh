@@ -15,12 +15,12 @@
 # ==============================================================================
 
 # Prompt colors constants
-readonly NORM="\e\[0m"
-readonly GREY="\e\[38;5;242m"
-readonly ERROR="\e\[38;5;196m"
-readonly WARN="\e\[38;5;214m"
-readonly OKAY="\e\[38;5;034m"
-readonly INFO="$NORM"
+# readonly NORM="\033[0m"
+# readonly GREY="\033[38;5;242m"
+# readonly ERROR="\033[38;5;196m"
+# readonly WARN="\033[38;5;214m"
+# readonly OKAY="\033[38;5;034m"
+# readonly INFO="$NORM"
 
 # ==============================================================================
 #  Functions are defined here to speed up the writing of the rest of the script
