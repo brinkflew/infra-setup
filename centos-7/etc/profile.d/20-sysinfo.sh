@@ -198,7 +198,7 @@ pclose $BOXSIZE
 
 pdtitle $BOXSIZE "${ACCT}CPU Usage" "${ACCT}Memory Usage"
 pdline  $BOXSIZE "`label ${LABELSIZE} 'CPU Load'``awk '{print $1*$2}' <<< "$load_1 100"`% (last minute)"  "`label ${LABELSIZE} 'Avail. Memory'`${mem_avail} / ${mem_total} MB"
-pdline  $BOXSIZE "`label ${LABELSIZE} 'CPU Model'`${cpu_model}"                                           "`label ${LABELSIZE} 'Memory Load'`$((awk '{print 100*$1/$2}' <<< '${mem_used} ${mem_total}'))% (used)"
+pdline  $BOXSIZE "`label ${LABELSIZE} 'CPU Model'`${cpu_model}"                                           "`label ${LABELSIZE} 'Memory Load'`$(awk '{print 100*$1/$2}' <<< '${mem_used} ${mem_total}')% (used)"
 pdline  $BOXSIZE "`label ${LABELSIZE} 'CPU Cores'`${cpu_cores} cores"                                     "`label ${LABELSIZE} 'Used Memory'`${mem_used} / ${mem_total} MB"
 pdline  $BOXSIZE "`label ${LABELSIZE} 'CPU Cores'`${cpu_threads} threads"                                 "`label ${LABELSIZE} 'Cached Memory'`${mem_cache} MB"
 pdline  $BOXSIZE "`label ${LABELSIZE} 'Frequency'`${cpu_freq} Mhz"                                        "`label ${LABELSIZE} 'SWAP Usage'`${swap_used} / ${swap_total} MB"
