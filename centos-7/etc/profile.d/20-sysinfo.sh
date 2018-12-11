@@ -177,7 +177,7 @@ cpu_freq=`lscpu | grep "CPU MHz" | sed -e 's/CPU MHz://' | awk '{$1=$1;print}'`
 # Find the current memory usage
 mem_avail=`free --si -m | awk 'NR==2{print $7}'`
 mem_cache=`free --si -m | awk 'NR==2{print $6}'`
-mem_used=`free --si -m | awk 'NR==2{print $4}'`
+mem_used=`free --si -m | awk 'NR==2{print $3}'`
 mem_total=`free --si -m | awk 'NR==2{print $2}'`
 swap_total=`free --si -m | awk 'NR==3{print $2}'`
 swap_used=`free --si -m | awk 'NR==3{print $3}'`
@@ -189,16 +189,16 @@ pline  $BOXSIZE "`label ${LABELSIZE} 'System Uptime'`${uptime}"
 pline  $BOXSIZE "`label ${LABELSIZE} 'SSH Sessions'`${session}"
 # pline  $BOXSIZE "`label ${LABELSIZE} 'Last Login'`${login}"
 pline  $BOXSIZE "`label ${LABELSIZE} 'Disk Usage'`${usage_home}"
-pline  $BOXSIZE "`label ${LABELSIZE} "                "`${usage_var}"
-pline  $BOXSIZE "`label ${LABELSIZE} "                "`${usage_varwww}"
-pline  $BOXSIZE "`label ${LABELSIZE} "                "`${usage_varlog}"
+pline  $BOXSIZE "`repeat " " $((16 + 1 + 1))`${usage_var}"
+pline  $BOXSIZE "`repeat " " $((16 + 1 + 1))`${usage_varwww}"
+pline  $BOXSIZE "`repeat " " $((16 + 1 + 1))`${usage_varlog}"
 pline  $BOXSIZE "`label ${LABELSIZE} 'Updates'`${updates_notif}"
 pline  $BOXSIZE "`repeat " " $((16 + 1 + 1))`${updates_sec_notif}"
 pclose $BOXSIZE
 
 pdtitle $BOXSIZE "${ACCT}CPU Usage" "${ACCT}Memory Usage"
 pdline  $BOXSIZE "`label ${LABELSIZE} 'CPU Load'``awk '{print $1*$2}' <<< "$load_1 100"`% (last minute)"  "`label ${LABELSIZE} 'Avail. Memory'`${mem_avail} / ${mem_total} MB"
-pdline  $BOXSIZE "`label ${LABELSIZE} 'CPU Model'`${cpu_model}"                                           "`label ${LABELSIZE} 'Memory Load'`$((${mem_used} / ${mem_total} * 100))% (used)"
+pdline  $BOXSIZE "`label ${LABELSIZE} 'CPU Model'`${cpu_model}"                                           "`label ${LABELSIZE} 'Memory Load'`awk '{print $1/$2*100}' <<< "${mem_used} ${mem_total}"`% (used)"
 pdline  $BOXSIZE "`label ${LABELSIZE} 'CPU Cores'`${cpu_cores} cores"                                     "`label ${LABELSIZE} 'Used Memory'`${mem_used} / ${mem_total} MB"
 pdline  $BOXSIZE "`label ${LABELSIZE} 'CPU Cores'`${cpu_threads} threads"                                 "`label ${LABELSIZE} 'Cached Memory'`${mem_cache} MB"
 pdline  $BOXSIZE "`label ${LABELSIZE} 'Frequency'`${cpu_freq} Mhz"                                        "`label ${LABELSIZE} 'SWAP Usage'`${swap_used} / ${swap_total} MB"

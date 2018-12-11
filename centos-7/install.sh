@@ -128,7 +128,7 @@ while [ "$#" -gt 0 ]; do
       ;;
     -c|--color)
       arg_value_required "$2" "$1"
-      termcolor="\e\[38;5;${2}m"
+      termcolor="$2"
       ;;
     -h|--help)
       print_help
