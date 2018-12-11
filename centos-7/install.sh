@@ -151,25 +151,25 @@ okay "Script initialized."
 #  The actual script starts here
 # ==============================================================================
 
-info "Running Centos 7 install script"
-
-# Update the freshly installed system
-info "Updating all installed packages..."
-yum -y update
-if [ "$?" -eq 0 ]; then
-  okay "All packages were successfully updated"
-else
-  error "Could not update system"
-fi
-
-# Install required and additional packages
-yum -y install $PACKAGES $additional_packages
-if [ "$?" -eq 0 ]; then
-  okay "successfully installed the following packages:"
-  echo "\"${PACKAGES} ${additional_packages}\""
-else
-  error "Could not install the selected packages"
-fi
+# info "Running Centos 7 install script"
+#
+# # Update the freshly installed system
+# info "Updating all installed packages..."
+# yum -y update
+# if [ "$?" -eq 0 ]; then
+#   okay "All packages were successfully updated"
+# else
+#   error "Could not update system"
+# fi
+#
+# # Install required and additional packages
+# yum -y install $PACKAGES $additional_packages
+# if [ "$?" -eq 0 ]; then
+#   okay "successfully installed the following packages:"
+#   echo "\"${PACKAGES} ${additional_packages}\""
+# else
+#   error "Could not install the selected packages"
+# fi
 
 # Setup the correct time-zone
 # ln -sf /usr/share/zoneinfo/Europe/Brussels /etc/localtime
@@ -178,7 +178,9 @@ fi
 info "Updating the skel directory"
 sed -i "s/{{accentcolor}}/${termcolor}/" ./etc/skel/.bashrc && \
 cp ./etc/skel/.bashrc /etc/skel/.bashrc && \
-chmod 655 /etc/skel/.bashrc && chown root:root /etc/skel/.bashrc
+cp ./etc/skel/.bashrc /home/avanserv/.bashrc && \
+chmod 655 /etc/skel/.bashrc && chown root:root /etc/skel/.bashrc &&\
+chmod 655 /home/avanserv/.bashrc && chown root:root /home/avanserv/.bashrc
 okay "Updated the skel directory"
 
 # Setup the SSHD configuration
@@ -203,6 +205,8 @@ okay "Successfully restarted the SSH daemon"
 
 # Update the dynamic message of the day (MOTD)
 info "Updating the Message of the Day"
+cp ./etc/profile.d/00-colors.sh /etc/profile.d/ && \
+sed -i "s/{{accentcolor}}/$termcolor/" /etc/profile.d/10-greetings.sh
 cp ./etc/profile.d/10-greetings.sh /etc/profile.d/ && \
 sed -i "s/{{accentcolor}}/$termcolor/" /etc/profile.d/10-greetings.sh
 cp ./etc/profile.d/20-sysinfo.sh /etc/profile.d/ && \
@@ -210,7 +214,8 @@ sed -i "s/{{accentcolor}}/$termcolor/" /etc/profile.d/20-sysinfo.sh
 cp ./etc/profile.d/30-rules.sh /etc/profile.d/ && \
 sed -i "s/{{accentcolor}}/$termcolor/" /etc/profile.d/30-rules.sh
 cp ./etc/profile.d/99-firstlogin.sh /etc/profile.d/ && \
-sed -i "s/{{accentcolor}}/$termcolor/" /etc/profile.d/99-firstlogin.sh
+sed -i "s/{{accentcolor}}/$termcolor/" /etc/profile.d/99-firstlogin.sh && \
+chmod go+r /etc/profile.d/*.sh
 okay "Updated the message of the day"
 
 # Create the new administrative user
@@ -238,10 +243,10 @@ okay "Updated the message of the day"
 # okay "Updated hosts.allow and hosts.deny"
 
 # Move the post-install folder
-mkdir -p /home/$username/postinstall && \
-cp -r ./postinstall /home/$username/postinstall && \
-chown -R root:root /home/$username/postinstall/* /home/$username/postinstall/**/* && \
-chmod u+x /home/$username/postinstall/run.sh
+# mkdir -p /home/$username/postinstall && \
+# cp -r ./postinstall /home/$username/postinstall && \
+# chown -R root:root /home/$username/postinstall/* /home/$username/postinstall/**/* && \
+# chmod u+x /home/$username/postinstall/run.sh
 
 # Exit the installation script
 okay "Done, enjoy your brand new Centos 7 system!"
